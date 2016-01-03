@@ -58,7 +58,7 @@ public class HazardsController {
 			
 			String[] temp = chemicallist.get(i).split(";");
 			TableHazardObject row = dao.getOneRecord(temp[0],temp[1],temp[2]);
-			if(row == null){
+			if(row.getId() == 0){
 				rejects.add(chemicallist.get(i));
 			}else{
 				output.add(row);

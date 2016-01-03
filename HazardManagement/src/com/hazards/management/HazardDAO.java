@@ -68,41 +68,44 @@ public class HazardDAO {
 		TableHazardObject output = new TableHazardObject();
 		PreparedStatement ps;
 		int i=0;
-		try{
+		
 			
 
 			StringBuilder sql=new StringBuilder().append("Select * from hazards where");
-			if(name!=" "){
-				if (name!=" "){
+			if(!(name.equals(" "))){
+				if (!(name.equals(" "))){
 					sql.append(" name = '").append(name).append("'");
 				}
-				if (synonym!=" "){
+				if (!(synonym.equals(" "))){
 					sql.append(" and synonym = '").append(synonym).append("'");
 				}
-				if (cas_number!=" "){
+				if (!(cas_number.equals(" "))){
 					sql.append(" and cas_number = '").append(cas_number).append("'");
 				}
-			}else if(name==" " && synonym!=" "){
-				if (synonym!=" "){
+			}else if(name.equals(" ") && !(synonym.equals(" "))){
+				if (!(synonym.equals(" "))){
 					sql.append(" synonym = '").append(synonym).append("'");
 				}
-				if (cas_number!=" "){
+				if (!(cas_number.equals(" "))){
 					sql.append(" and cas_number = '").append(cas_number).append("'");
 				}
-			}else if(name==" " && synonym==" " && cas_number!=" "){
+			}else if(name.equals(" ") && synonym.equals(" ") && !(cas_number.equals(" "))){
 
-				if (cas_number!=" "){
+				if (!(cas_number.equals(" "))){
 					sql.append(" cas_number = '").append(cas_number).append("'");
 				}
 			}
 			sql.append(";");
 
 
-
+			try{	
 			ps=connection.prepareStatement(sql.toString());
+			System.out.println(name+synonym+cas_number);
+			System.out.println(sql.toString());
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
 				i++;
+				System.out.println("---------------------------------------------------------------------");
 				output.setId(rs.getInt(1));
 				output.setName(rs.getString(2));
 				output.setSynonym(rs.getString(3));
