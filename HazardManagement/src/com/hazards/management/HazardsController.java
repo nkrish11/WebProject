@@ -43,13 +43,13 @@ public class HazardsController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String parseExcel(){
 		
-		String filelocation = "HazardManagement.xls";
-		String outputlocation = "Output.xls";
-		String rejectlocation = "Reject.xls";
+		String filelocation = "C:/Users/nikhil/Desktop/HazardManagement.xlsx";
+		String outputlocation = "Output.xlsx";
+		String rejectlocation = "Reject.xlsx";
 		
 		ExcelSheetAPI object = new ExcelSheetAPI();
 		
-		ArrayList<String> chemicallist = object.parse_Excel(filelocation);
+		ArrayList<String> chemicallist =object.parse_Excel(filelocation);
 		ArrayList<TableHazardObject> output = new ArrayList<TableHazardObject>();
 		ArrayList<String> rejects = new ArrayList<String>();
 		

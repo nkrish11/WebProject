@@ -18,21 +18,21 @@ import com.hazards.management.TableHazardObject;
  *
  */
 public class HazardDAO {
-	
+
 	DatabaseAccess dtbsobj;
 	Connection connection;
-	
+
 	public HazardDAO(){
 		try{
 			dtbsobj=new DatabaseAccess();
 			dtbsobj.connect();
-		connection = dtbsobj.getConnection();
+			connection = dtbsobj.getConnection();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<TableHazardObject> getAllRecords(){
 		PreparedStatement ps;
 		try{
@@ -58,32 +58,47 @@ public class HazardDAO {
 		}
 		catch(SQLException e){
 			e.printStackTrace();
-			   ps=null;
-			   return null;
+			ps=null;
+			return null;
 		}
 	}
-	
+
 	public TableHazardObject getOneRecord(String name, String synonym, String cas_number){
-		
+
 		TableHazardObject output = new TableHazardObject();
 		PreparedStatement ps;
 		int i=0;
 		try{
 			
-			StringBuilder sql=new StringBuilder().append("Select * from hazards");
-			if (name!=""){
-				sql.append(" where name = '").append(name).append("'");
-			}
-			if (synonym!=""){
-				sql.append(" and synonym = '").append(synonym).append("'");
-			}
-			if (cas_number!=""){
-				sql.append(" and cas_number = '").append(cas_number).append("'");
+
+			StringBuilder sql=new StringBuilder().append("Select * from hazards where");
+			if(name!=" "){
+				if (name!=" "){
+					sql.append(" name = '").append(name).append("'");
+				}
+				if (synonym!=" "){
+					sql.append(" and synonym = '").append(synonym).append("'");
+				}
+				if (cas_number!=" "){
+					sql.append(" and cas_number = '").append(cas_number).append("'");
+				}
+			}else if(name==" " && synonym!=" "){
+				if (synonym!=" "){
+					sql.append(" synonym = '").append(synonym).append("'");
+				}
+				if (cas_number!=" "){
+					sql.append(" and cas_number = '").append(cas_number).append("'");
+				}
+			}else if(name==" " && synonym==" " && cas_number!=" "){
+
+				if (cas_number!=" "){
+					sql.append(" cas_number = '").append(cas_number).append("'");
+				}
 			}
 			sql.append(";");
-			
-			
-			
+
+
+
 			ps=connection.prepareStatement(sql.toString());
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
@@ -98,28 +113,28 @@ public class HazardDAO {
 				output.setNFPA4(rs.getString(8));
 				output.setPrimary_hazard(rs.getString(9));
 				output.setSecondary_hazard(rs.getString(10));
-				
+
 				if(i>1){
 					return null;
 				}
-				
+
 			}
-			
+
 			return output;
-			
+
 		}
 		catch(SQLException e){
 			e.printStackTrace();
-			   ps=null;
-			   return null;
+			ps=null;
+			return null;
 		}
-		
-		
-		
-			
-			
-		
+
+
+
+
+
+
 	}
-	
+
 
 }

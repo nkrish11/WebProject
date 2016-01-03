@@ -27,7 +27,7 @@ public class ExcelSheetAPI {
 		try{
 			ArrayList<String> output = new ArrayList<String>();
 
-			FileInputStream file = new FileInputStream(new File(location + name));
+			FileInputStream file = new FileInputStream(new File(name));
 			//Create Workbook instance holding reference to .xlsx file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -43,10 +43,26 @@ public class ExcelSheetAPI {
 				Cell n = row.getCell(0);
 				Cell s = row.getCell(1);
 				Cell cn = row.getCell(2);
+				String n1 = new String();
+				String s1=new String();
+				String cn1=new String();
+				
+				if(n==null)
+					n1=" ";
+				else
+					n1=n.getStringCellValue();
+				if(s==null)
+					s1=" ";
+				else
+					s1=s.getStringCellValue();
+				if(cn==null)
+					cn1=" ";
+				else
+					cn1=cn.getStringCellValue();
 				
 				StringBuilder str = new StringBuilder();
-				str.append(n.getStringCellValue()).append(";").append(s.getStringCellValue())
-					.append(";").append(cn.getStringCellValue());
+				str.append(n1).append(";").append(s1)
+					.append(";").append(cn1);
 			
 				output.add(str.toString());
 
@@ -94,10 +110,12 @@ public class ExcelSheetAPI {
 	            for (Object obj : objArr)
 	            {
 	               Cell cell = row.createCell(cellnum++);
+	               
 	               if(obj instanceof String)
 	                    cell.setCellValue((String)obj);
 	                else if(obj instanceof Integer)
 	                    cell.setCellValue((Integer)obj);
+	               
 	            }
 	        }
 	        try
