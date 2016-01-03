@@ -1,0 +1,44 @@
+<!-- @author Himanshu Mishra (homi1388@gmail.com) -->
+<!-- @author Nikhil Krishnamurthy -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1">
+<title>All Records</title>
+</head>
+<body>
+
+<div id='Records'> 
+
+</div>
+<script>
+
+var xhr1=new XMLHttpRequest();
+var url1="http://localhost:8080/HazardManagement/rest/test/list";
+xhr1.onreadystatechange=function(){
+ if(xhr1.readyState==4 && xhr1.status==200){
+  myPrintRecordCount(xhr1.response)
+  }
+ }
+xhr1.open("GET",url1,true);
+xhr1.send();
+function myPrintRecordCount(response){
+ var arr=JSON.parse(response);
+ var output= "<ul>";
+ for(var i=0;i<arr.length;i++){
+	output=output+"<li>"+"CAS Number :"+arr[i].cas_number+" Name :"+arr[i].name+" NFPA1 :"+arr[i].NFPA1+" NFPA2 :"+arr[i].NFPA2
+	+" NFPA3 :"+arr[i].NFPA3+" NFPA4 :"+arr[i].NFPA4+" Primary hazard :"+arr[i].primary_hazard+
+	" Secondary hazard :"+arr[i].secondary_hazard+"</li>";
+ }
+ output=output+"</ul>";
+ document.getElementById('Records').innerHTML=output;
+ 
+}
+
+
+</script>
+
+
+</body>
+</html>

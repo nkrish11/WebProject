@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chemical Database Index</title>
+<script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+
+<input type="button" id="choice1" value="Print all the records">
+<input type="button" id="choice2" value="Excel sheet processing">
+<input type="button" id="choice3" value="Input a record">
+
+
+
+<script>
+
+alert("working");
+$(".choice1").onclick(function(){
+	alert("Print all records");
+	$("#choice1").load("/HazardManagement/PrintAll.html");
+});
+$("#choice2").onclick(function(){
+	$("#choice2").load("/HazardManagement/PrintAll.html");
+});
+$("#choice3").onclick(function(){
+	$("#choice3").load("HazardManagement/PrintAll.html");
+});
+
+</script>
+
+</body>
+</html>
