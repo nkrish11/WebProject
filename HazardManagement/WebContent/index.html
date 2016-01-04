@@ -2,29 +2,126 @@
 <html>
 <head>
 	<title>Chemical Database Index</title>
-<script src="jquery-1.11.3.js"></script>
+	<style>
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px; 
+}
+
+#section {
+    
+    float:left;
+    padding:30px; 
+}
+
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;  
+    position: relative; 
+    z-index: 10;
+    height: 3em; 
+    margin-top: -3em;
+}
+</style>
+
 </head>
 <body>
 
-<input type="button" id="choice1" value="Print all the records">
-<input type="button" id="choice2" value="Excel sheet processing">
-<input type="button" id="choice3" value="Input a record">
+<div id="header">
+<h1>Hazard Management</h1>
+</div>
 
+<div id='nav'>
+<button onclick="PrintAll()">Click to Print all the records</button>
+<button onclick="ParsingExcel()">Click to download data into an Excel sheet</button>
+<button onclick="DataEntry()">Click to upload data in the database</button>
+</div>
+
+<div id='section'> 
+</div>
+
+
+<div id="footer">
+Chemistry and Biochemistry Dept.   ::   John Crozier
+</div>
 
 
 <script>
+var xhr1=new XMLHttpRequest();
+var url1="http://localhost:8080/HazardManagement/rest/test/list";
+var url2="http://localhost:8080/HazardManagement/rest/test/pexcl";
+var url3="http://localhost:8080/HazardManagement/rest/test/dataentry";
 
-alert("working");
-$(".choice1").onclick(function(){
-	alert("Print all records");
-	$("#choice1").load("/HazardManagement/PrintAll.html");
-});
-$("#choice2").onclick(function(){
-	$("#choice2").load("/HazardManagement/PrintAll.html");
-});
-$("#choice3").onclick(function(){
-	$("#choice3").load("HazardManagement/PrintAll.html");
-});
+xhr1.onreadystatechange=function(){
+	 if(xhr1.readyState==4 && xhr1.status==200){
+		 
+	  myPrintRecordCount(xhr1.response)
+	  }
+	 }
+	 
+function PrintAll(){
+	
+	xhr1.open("GET",url1,true);
+	xhr1.send();
+}
+
+function ParsingExcel(){
+	
+	xhr1.open("GET",url2,true);
+	xhr1.send();
+}
+
+function DataEntry(){
+	
+	xhr1.open("GET",url3,true);
+	xhr1.send();
+}
+
+function myPrintRecordCount(response){
+ 
+ 
+ if(IsJsonString(response)){
+	 var arr=JSON.parse(response);
+ var output= "<ul>";
+ for(var i=0;i<arr.length;i++){
+	output=output+"<li>"+"CAS Number :"+arr[i].cas_number+" Name :"+arr[i].name+" NFPA1 :"+arr[i].NFPA1+" NFPA2 :"+arr[i].NFPA2
+	+" NFPA3 :"+arr[i].NFPA3+" NFPA4 :"+arr[i].NFPA4+" Primary hazard :"+arr[i].primary_hazard+
+	" Secondary hazard :"+arr[i].secondary_hazard+"</li>";
+ }
+ output=output+"</ul>";
+ 
+ document.getElementById('section').innerHTML=output;
+ }else{
+	 
+	
+	 	document.getElementById('section').innerHTML = response;
+	 }
+ 
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+
 
 </script>
 

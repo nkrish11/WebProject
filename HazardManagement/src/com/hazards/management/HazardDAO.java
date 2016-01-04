@@ -140,4 +140,38 @@ public class HazardDAO {
 	}
 
 
+	public int dataEntry(ArrayList<TableHazardObject> tho){
+		PreparedStatement ps;
+		try{
+			for(int i=0;i<tho.size();i++){
+		
+			
+
+			StringBuilder sql=new StringBuilder().append("INSERT INTO hazards "
+					+ "(name,synonym,cas_number,NFPA1,NFPA2,NFPA3,NFPA4,Primary_hazard,Secondary_hazard) VALUES ('"
+					+tho.get(i).getName()+"','"+tho.get(i).getSynonym()+"','"+tho.get(i).getCas_number()+"','"
+					+tho.get(i).getNFPA1()+"','"+tho.get(i).getNFPA1()+"','"+tho.get(i).getNFPA1()+"','"
+					+tho.get(i).getNFPA1()+"','"+tho.get(i).getPrimary_hazard()+"','"+tho.get(i).getSecondary_hazard()+"');");
+
+
+				
+			ps=connection.prepareStatement(sql.toString());
+			ps.executeUpdate();
+			
+			}
+			
+
+			return 0;
+
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			ps=null;
+			return 1;
+		}
+
+
+
+		
+	}
 }

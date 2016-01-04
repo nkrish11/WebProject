@@ -14,6 +14,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * @author Himanshu Mishra (homi1388@gmail.com)
+ * @author Nikhil Krishnamurthy
+ */
+
 public class ExcelSheetAPI {
 	
 	final String location = "C:/Users/nikhil/Desktop/";
@@ -190,5 +195,51 @@ public class ExcelSheetAPI {
         }
 	}
 
+	public ArrayList<TableHazardObject> dataEntry(String name){
+		ArrayList<TableHazardObject> output = new ArrayList<TableHazardObject>();
+		try{
+			
+
+			FileInputStream file = new FileInputStream(new File(name));
+			//Create Workbook instance holding reference to .xlsx file
+			XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+			//Get first/desired sheet from the workbook
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
+			//Iterate through each rows one by one
+			Iterator<Row> rowIterator = sheet.iterator();
+			while (rowIterator.hasNext())
+			{
+				
+				Row row = rowIterator.next();
+				
+				
+				TableHazardObject tho = new TableHazardObject();
+				 tho.setName(row.getCell(0).getStringCellValue());
+				 tho.setSynonym(row.getCell(1).getStringCellValue());
+				 tho.setCas_number(row.getCell(2).getStringCellValue());
+				 tho.setNFPA1(Double.toString(row.getCell(3).getNumericCellValue()));
+				 tho.setNFPA2(Double.toString(row.getCell(4).getNumericCellValue()));
+				 tho.setNFPA3(Double.toString(row.getCell(5).getNumericCellValue()));
+				 tho.setNFPA4(Double.toString(row.getCell(6).getNumericCellValue()));
+				 tho.setPrimary_hazard(row.getCell(7).getStringCellValue());
+				 tho.setSecondary_hazard(row.getCell(8).getStringCellValue());
+				output.add(tho);
+				
+
+
+			}
+			workbook.close();
+			file.close();
+			return output;
+
+		}catch(Exception e){
+			System.out.println("parseExcel : problem in reading the excel");
+			 e.printStackTrace();
+			return null;
+		}
+		
+	}
 
 }

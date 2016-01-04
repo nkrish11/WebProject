@@ -76,10 +76,35 @@ public class HazardsController {
 	
 	
 		if(c1==0 && c2==0)
-		return "Successful";
+		return "I have successfully created the two excel files for you. Output.xlsx has all the data I could gather from the database "
+				+ " and Reject.xlsx is a list of those chemicals that I could not find.";
 		else
-			return "Unsuccessful";
+			return "I was Unsuccessful in finishing the task that you gave me.";
 	}
 	
+	
+	
+	@GET
+	@Path("/dataentry")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String dataEntry(){
+		String filelocation = "C:/Users/nikhil/Desktop/DataEntry.xlsx";
+		
+		ExcelSheetAPI object = new ExcelSheetAPI();
+		ArrayList<TableHazardObject> output = new ArrayList<TableHazardObject>();
+		output = object.dataEntry(filelocation); 
+		
+		int c = dao.dataEntry(output);
+		
+		if(c == 0){
+			return "I have successfully stored the data in the database";
+			
+		}else{
+			return "I was Unsuccessful in storing the data in the database";
+		}
+		
+		
+		
+	}
 	
 }
