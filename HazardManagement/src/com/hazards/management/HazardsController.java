@@ -43,7 +43,7 @@ public class HazardsController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String parseExcel(){
 		
-		String filelocation = "C:/Users/nikhil/Desktop/HazardManagement.xlsx";
+		String filelocation = "HazardManagement.xlsx";
 		String outputlocation = "Output.xlsx";
 		String rejectlocation = "Reject.xlsx";
 		
@@ -58,6 +58,7 @@ public class HazardsController {
 			
 			String[] temp = chemicallist.get(i).split(";");
 			TableHazardObject row = dao.getOneRecord(temp[0],temp[1],temp[2]);
+			
 			if(row.getId() == 0){
 				rejects.add(chemicallist.get(i));
 			}else{

@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelSheetAPI {
 	
-	final String location = "C:/Users/nikhil/Desktop/";
+	final String location = "C:/Hazard Management/";
 	
 	public ExcelSheetAPI(){
 
@@ -32,7 +32,7 @@ public class ExcelSheetAPI {
 		try{
 			ArrayList<String> output = new ArrayList<String>();
 
-			FileInputStream file = new FileInputStream(new File(name));
+			FileInputStream file = new FileInputStream(new File(location+name));
 			//Create Workbook instance holding reference to .xlsx file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -45,22 +45,27 @@ public class ExcelSheetAPI {
 			{
 
 				Row row = rowIterator.next();
-				Cell n = row.getCell(0);
-				Cell s = row.getCell(1);
-				Cell cn = row.getCell(2);
+				
+				Cell n = row.getCell(0,Row.CREATE_NULL_AS_BLANK);
+				Cell s = row.getCell(1,Row.CREATE_NULL_AS_BLANK);
+				Cell cn = row.getCell(2,Row.CREATE_NULL_AS_BLANK);
+				n.setCellType(Cell.CELL_TYPE_STRING);
+				s.setCellType(Cell.CELL_TYPE_STRING);
+				cn.setCellType(Cell.CELL_TYPE_STRING);
+				
 				String n1 = new String();
 				String s1=new String();
 				String cn1=new String();
 				
-				if(n==null)
+				if(n.getStringCellValue().equals(""))
 					n1=" ";
 				else
 					n1=n.getStringCellValue();
-				if(s==null)
+				if(s.getStringCellValue().equals(""))
 					s1=" ";
 				else
 					s1=s.getStringCellValue();
-				if(cn==null)
+				if(cn.getStringCellValue().equals(""))
 					cn1=" ";
 				else
 					cn1=cn.getStringCellValue();
@@ -68,7 +73,7 @@ public class ExcelSheetAPI {
 				StringBuilder str = new StringBuilder();
 				str.append(n1).append(";").append(s1)
 					.append(";").append(cn1);
-			
+			System.out.println(str.toString());
 				output.add(str.toString());
 
 
@@ -213,27 +218,27 @@ public class ExcelSheetAPI {
 			{
 				
 				Row row = rowIterator.next();
-				row.toString();
+				
 				
 				TableHazardObject tho = new TableHazardObject();
 				
-				
+				row.getCell(0,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
 				 tho.setName(row.getCell(0,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
-				 
+				 row.getCell(1,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
 				 tho.setSynonym(row.getCell(1,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
-
+				 row.getCell(2,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
 				 tho.setCas_number(row.getCell(2,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
-
-				 tho.setNFPA1(Double.toString(row.getCell(3,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
-
-				 tho.setNFPA2(Double.toString(row.getCell(4,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
-
-				 tho.setNFPA3(Double.toString(row.getCell(5,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
-
-				 tho.setNFPA4(Double.toString(row.getCell(6,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
-
+				 row.getCell(3,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
+				 tho.setNFPA1(row.getCell(3,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+				 row.getCell(4,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
+				 tho.setNFPA2(row.getCell(4,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+				 row.getCell(5,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
+				 tho.setNFPA3(row.getCell(5,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+				 row.getCell(6,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
+				 tho.setNFPA4(row.getCell(6,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+				 row.getCell(7,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
 				 tho.setPrimary_hazard(row.getCell(7,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
-
+				 row.getCell(8,Row.CREATE_NULL_AS_BLANK).setCellType(Cell.CELL_TYPE_STRING);
 				 tho.setSecondary_hazard(row.getCell(8,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
 				output.add(tho);
 				
