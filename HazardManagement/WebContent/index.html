@@ -4,22 +4,21 @@
 	<title>Chemical Database Index</title>
 	<style>
 #header {
-    background-color:black;
+    background: black;
     color:white;
     text-align:center;
     padding:5px;
 }
 #nav {
-    line-height:30px;
+    line-height:50px;
     background-color:#eeeeee;
-    height:300px;
+    height:70vh;
     width:100px;
     float:left;
     padding:5px; 
 }
 
 #section {
-    
     float:left;
     padding:30px; 
 }
@@ -97,9 +96,9 @@ function myPrintRecordCount(response){
 	 var arr=JSON.parse(response);
  var output= "<ul>";
  for(var i=0;i<arr.length;i++){
-	output=output+"<li>"+"CAS Number :"+arr[i].cas_number+" Name :"+arr[i].name+" NFPA1 :"+arr[i].NFPA1+" NFPA2 :"+arr[i].NFPA2
-	+" NFPA3 :"+arr[i].NFPA3+" NFPA4 :"+arr[i].NFPA4+" Primary hazard :"+arr[i].primary_hazard+
-	" Secondary hazard :"+arr[i].secondary_hazard+"</li>";
+	output=output+"<li>"+"CAS Number :"+arr[i].cas_number+" ; "+" Name :"+arr[i].name+" ; "+" Synonym :"+arr[i].synonym+" ; "+
+	" NFPA1 :"+arr[i].NFPA1+" ; "+" NFPA2 :"+arr[i].NFPA2+" ; "+" NFPA3 :"+arr[i].NFPA3+" ; "+" NFPA4 :"+arr[i].NFPA4+" ; "+
+	" Primary hazard :"+arr[i].primary_hazard+" ; "+" Secondary hazard :"+arr[i].secondary_hazard+"</li>";
  }
  output=output+"</ul>";
  

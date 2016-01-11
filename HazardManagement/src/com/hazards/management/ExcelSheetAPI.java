@@ -213,18 +213,28 @@ public class ExcelSheetAPI {
 			{
 				
 				Row row = rowIterator.next();
-				
+				row.toString();
 				
 				TableHazardObject tho = new TableHazardObject();
-				 tho.setName(row.getCell(0).getStringCellValue());
-				 tho.setSynonym(row.getCell(1).getStringCellValue());
-				 tho.setCas_number(row.getCell(2).getStringCellValue());
-				 tho.setNFPA1(Double.toString(row.getCell(3).getNumericCellValue()));
-				 tho.setNFPA2(Double.toString(row.getCell(4).getNumericCellValue()));
-				 tho.setNFPA3(Double.toString(row.getCell(5).getNumericCellValue()));
-				 tho.setNFPA4(Double.toString(row.getCell(6).getNumericCellValue()));
-				 tho.setPrimary_hazard(row.getCell(7).getStringCellValue());
-				 tho.setSecondary_hazard(row.getCell(8).getStringCellValue());
+				
+				
+				 tho.setName(row.getCell(0,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+				 
+				 tho.setSynonym(row.getCell(1,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+
+				 tho.setCas_number(row.getCell(2,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+
+				 tho.setNFPA1(Double.toString(row.getCell(3,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
+
+				 tho.setNFPA2(Double.toString(row.getCell(4,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
+
+				 tho.setNFPA3(Double.toString(row.getCell(5,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
+
+				 tho.setNFPA4(Double.toString(row.getCell(6,Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
+
+				 tho.setPrimary_hazard(row.getCell(7,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+
+				 tho.setSecondary_hazard(row.getCell(8,Row.CREATE_NULL_AS_BLANK).getStringCellValue());
 				output.add(tho);
 				
 
